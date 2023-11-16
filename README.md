@@ -4,7 +4,7 @@ Este projeto foi gerado com Angular CLI versão 16.2.10.
 
 ## Informação importante sobre o projeto
 
-- Ele consome a Api REST que está no seguinte [repositório](https://github.com/rita-moura/managementBackend), então para que o projeto funcione como o esperado é necessário que seja feito o clone da Api e as configurações decritas no Readme.md
+- Ele consome a Api REST que está no seguinte [repositório](https://github.com/rita-moura/managementBackend), então para que o projeto funcione como o esperado é necessário que seja feito o clone da Api e as configurações descritas no Readme.md
 
 ## Como usar o projeto
 
