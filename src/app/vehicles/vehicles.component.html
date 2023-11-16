@@ -1,0 +1,93 @@
+<br/>
+<div>
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="input-group input-group-sm mb-3">
+                        <input 
+                        type="text" class="form-control" aria-label="Sizing example input" 
+                        aria-describedby="inputGroup-sizing-sm"
+                        [(ngModel)]="vehicle.brand" placeholder="Informe a marca">
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group input-group-sm mb-3">
+                        <input 
+                        type="text" class="form-control" aria-label="Sizing example input" 
+                        aria-describedby="inputGroup-sizing-sm"
+                        [(ngModel)]="vehicle.color" placeholder="Informe a cor">
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group input-group-sm mb-3">
+                        <input 
+                        type="text" class="form-control" aria-label="Sizing example input" 
+                        aria-describedby="inputGroup-sizing-sm"
+                        [(ngModel)]="vehicle.model" placeholder="Informe o modelo">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="input-group input-group-sm mb-3">
+                        <input 
+                        type="text" class="form-control" aria-label="Sizing example input" 
+                        aria-describedby="inputGroup-sizing-sm"
+                        [(ngModel)]="vehicle.plate" placeholder="Informe a placa">
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group input-group-sm mb-3">
+                        <input 
+                        type="text" class="form-control" aria-label="Sizing example input" 
+                        aria-describedby="inputGroup-sizing-sm"
+                        [(ngModel)]="vehicle.year" placeholder="Informe o ano">
+                    </div>
+                </td>
+            <tr>
+                <td>
+                    <button type="button" class="btn btn-outline-primary" (click)="insertVehicle()">Salvar</button>
+                    <button type="button" class="btn btn-outline-primary" (click)="limpar()">Cancelar</button>
+                    <button type="button" class="btn btn-outline-primary" (click)="updateVehicle(vehicle)">Alterar</button>
+                    <button type="button" class="btn btn-outline-primary" (click)="filterUnreserved()">Veículos não reservados</button>
+                    <button type="button" class="btn btn-outline-primary" (click)="getAllVehicles()">Todos os veículos</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br/>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Cor</th>
+        <th scope="col">Modelo</th>
+        <th scope="col">Placa</th>
+        <th scope="col">Ano</th>
+        <th scope="col">Reserva</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <tr *ngFor="let vehicle of vehicles">
+            <td scope="row">{{vehicle.id}}</td>
+            <td scope="row">{{vehicle.brand}}</td>
+            <td scope="row">{{vehicle.color}}</td>
+            <td scope="row">{{vehicle.model}}</td>
+            <td scope="row">{{vehicle.plate}}</td>
+            <td scope="row">{{vehicle.year}}</td>
+            <td scope="row">
+                <button *ngIf="vehicle.reserved && vehicle.id != null" type="button" class="btn btn-outline-primary" (click)="insertReservation(vehicle.id)">Cancelar Reserva</button>
+                <button *ngIf="!vehicle.reserved && vehicle.id != null" type="button" class="btn btn-outline-primary" (click)="insertReservation(vehicle.id)">Reservar</button>
+            </td>
+            <td scope="row">
+                <button type="button" class="btn btn-outline-primary" (click)="deleteVehicle(vehicle.id)">🗑️</button>
+                <button type="button" class="btn btn-outline-primary" (click)="updateVehicle(vehicle)">✍️</button>
+            </td>
+        </tr>
+    </tbody>
+  </table>
