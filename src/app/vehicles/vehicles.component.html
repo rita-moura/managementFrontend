@@ -1,60 +1,72 @@
+<app-loading [loading]="loading"></app-loading>
 <br/>
 <div>
-    <table>
-        <tbody>
+    <table class="form-control">
+        <thead>
             <tr>
                 <td>
-                    <div class="input-group input-group-sm mb-3">
+                    <div class="input-group mb-3">
                         <input 
-                        type="text" class="form-control" aria-label="Sizing example input" 
+                        type="text" class="form-control" 
                         aria-describedby="inputGroup-sizing-sm"
-                        [(ngModel)]="vehicle.brand" placeholder="Informe a marca">
+                        [(ngModel)]="vehicle.brand" placeholder="Informe a marca"
+                        required>
                     </div>
                 </td>
                 <td>
-                    <div class="input-group input-group-sm mb-3">
+                    <div class="input-group mb-3">
                         <input 
-                        type="text" class="form-control" aria-label="Sizing example input" 
+                        type="text" class="form-control" 
                         aria-describedby="inputGroup-sizing-sm"
-                        [(ngModel)]="vehicle.color" placeholder="Informe a cor">
+                        [(ngModel)]="vehicle.color" placeholder="Informe a cor"
+                        required>
                     </div>
                 </td>
                 <td>
-                    <div class="input-group input-group-sm mb-3">
+                    <div class="input-group mb-3">
                         <input 
-                        type="text" class="form-control" aria-label="Sizing example input" 
+                        type="text" class="form-control" 
                         aria-describedby="inputGroup-sizing-sm"
-                        [(ngModel)]="vehicle.model" placeholder="Informe o modelo">
+                        [(ngModel)]="vehicle.model" placeholder="Informe o modelo"
+                        required>
                     </div>
                 </td>
-            </tr>
-            <tr>
                 <td>
-                    <div class="input-group input-group-sm mb-3">
+                    <div class="input-group mb-3">
                         <input 
-                        type="text" class="form-control" aria-label="Sizing example input" 
+                        type="text" class="form-control" 
                         aria-describedby="inputGroup-sizing-sm"
                         [(ngModel)]="vehicle.plate" placeholder="Informe a placa">
                     </div>
                 </td>
                 <td>
-                    <div class="input-group input-group-sm mb-3">
+                    <div class="input-group mb-3">
                         <input 
-                        type="text" class="form-control" aria-label="Sizing example input" 
+                        type="text" class="form-control" 
                         aria-describedby="inputGroup-sizing-sm"
                         [(ngModel)]="vehicle.year" placeholder="Informe o ano">
                     </div>
                 </td>
+            </tr>
+        </thead>
+    </table>
+    <table>
+        <thead>
             <tr>
                 <td>
-                    <button type="button" class="btn btn-outline-primary" (click)="insertVehicle()">Salvar</button>
-                    <button type="button" class="btn btn-outline-primary" (click)="limpar()">Cancelar</button>
-                    <button type="button" class="btn btn-outline-primary" (click)="updateVehicle(vehicle)">Alterar</button>
-                    <button type="button" class="btn btn-outline-primary" (click)="filterUnreserved()">Veículos não reservados</button>
-                    <button type="button" class="btn btn-outline-primary" (click)="getAllVehicles()">Todos os veículos</button>
+                    <button type="button" class="btn btn-outline-dark" (click)="insertVehicle(); updateVehicle(vehicle)">Salvar</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-outline-dark" (click)="recarregarPagina()">Cancelar</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-outline-dark" (click)="filterUnreserved()">Veículos não reservados</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-outline-dark" (click)="getAllVehicles()">Todos os veículos</button>
                 </td>
             </tr>
-        </tbody>
+        </thead>
     </table>
 </div>
 <br/>
@@ -81,12 +93,12 @@
             <td scope="row">{{vehicle.plate}}</td>
             <td scope="row">{{vehicle.year}}</td>
             <td scope="row">
-                <button *ngIf="vehicle.reserved && vehicle.id != null" type="button" class="btn btn-outline-primary" (click)="insertReservation(vehicle.id)">Cancelar Reserva</button>
-                <button *ngIf="!vehicle.reserved && vehicle.id != null" type="button" class="btn btn-outline-primary" (click)="insertReservation(vehicle.id)">Reservar</button>
+                <button *ngIf="vehicle.reserved && vehicle.id != null" type="button" class="btn btn-outline-dark" (click)="deleteReservation(vehicle.id); recarregarPagina()">Cancelar Reserva</button>
+                <button *ngIf="!vehicle.reserved && vehicle.id != null" type="button" class="btn btn-outline-dark" (click)="insertReservation(vehicle.id); recarregarPagina()">Reservar</button>
             </td>
             <td scope="row">
-                <button type="button" class="btn btn-outline-primary" (click)="deleteVehicle(vehicle.id)">🗑️</button>
-                <button type="button" class="btn btn-outline-primary" (click)="updateVehicle(vehicle)">✍️</button>
+                <button type="button" class="btn btn-outline-dark" (click)="deleteVehicle(vehicle.id); recarregarPagina()">🗑️</button>
+                <button type="button" class="btn btn-outline-dark" (click)="updateVehicle(vehicle)">✍️</button>
             </td>
         </tr>
     </tbody>
