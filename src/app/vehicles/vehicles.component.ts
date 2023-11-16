@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import Vehicle from './vehicle'
 import VehicleService from './vehicles.service';
+import ReservationService from '../reservation/reservetion.service';
+import Reservation from '../reservation/reservation';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-vehicles',
@@ -9,23 +12,38 @@ import VehicleService from './vehicles.service';
 })
 
 export class VehiclesComponent implements OnInit{
-  constructor(private vehicleService:VehicleService){};
-  
+  constructor(
+    private vehicleService:VehicleService, 
+    private reservetionService: ReservationService,
+  ){};
+
   vehicle:Vehicle = new Vehicle;
   
   vehicles:Vehicle[] = [];
 
+  reservations: Reservation[] = [];
+
+  loading:boolean = true;
+
   ngOnInit(): void {
     this.getAllVehicles();
+    this.getAllreservations();
+    this.loading = false
+  }
+
+  recarregarPagina(): void {
+    location.reload();
   }
 
   getAllVehicles(): void {
     this.vehicleService.getAllVehicles().subscribe(
       response => {
+        this.loading = true;
         this.vehicles = response;
       },
       error => {
-        this.handleError(error);
+        this.loading = false;
+        console.log(error);
       }
     )
   }
@@ -33,11 +51,12 @@ export class VehiclesComponent implements OnInit{
   insertVehicle(): void {
     this.vehicleService.insertVehicle(this.vehicle).subscribe(
       response => {
-        // this.handleSuccess("Veículo inserido com sucesso!!!");
+        this.loading = true;
         this.getAllVehicles();
       },
       error => {
-        this.handleError(error);
+        this.loading = false;
+        console.log(error);
       }
     )
   }
@@ -46,11 +65,13 @@ export class VehiclesComponent implements OnInit{
     if(id != null){
       this.vehicleService.deleteVehicle(id).subscribe(
         resposta => {
-          // this.handleSuccess("Veículo apagado com sucesso!");
+          this.loading = true;
           this.getAllVehicles();
         },
         error => {
-          this.handleError(error);
+          this.loading = false;
+          alert("Veículo está reservado, por isso não pode ser excluído")
+          console.log(error);
         }
       )
     }
@@ -58,42 +79,16 @@ export class VehiclesComponent implements OnInit{
 
   updateVehicle(vehicle: Vehicle): void {
     this.vehicle = vehicle
-    console.log(vehicle);
     
     this.vehicleService.updateVehicle(this.vehicle).subscribe(
       response => {
+        this.loading = true;
         // this.handleSuccess("Veículo atualizado com sucesso!!");
-        this.limpar()
         this.getAllVehicles();
       },
       error => {
-        this.handleError(error);
-      }
-    )
-  }
-
-  insertReservation(id: number) {
-    this.vehicleService.insertReservation(id).subscribe(
-      response => {
-        // this.handleSuccess("Veículo atualizado com sucesso!!");
-        this.limpar()
-        this.getAllVehicles();
-      },
-      error => {
-        this.handleError(error);
-      }
-    )
-  }
-
-  deleteReservation(id: number) {
-    this.vehicleService.deleteReservation(id).subscribe(
-      response => {
-        // this.handleSuccess("Veículo atualizado com sucesso!!");
-        this.limpar()
-        this.getAllVehicles();
-      },
-      error => {
-        this.handleError(error);
+        this.loading = false;
+        console.log(error);
       }
     )
   }
@@ -102,18 +97,53 @@ export class VehiclesComponent implements OnInit{
     this.vehicles = this.vehicles.filter(vehicle => !vehicle.reserved);
   }
 
-  limpar(): void{
-    this.vehicle = new Vehicle;
+  getAllreservations(): void {
+    this.reservetionService.getAllreservations().subscribe(
+      response => {
+        this.loading = true;
+        this.reservations = response;
+      },
+      error => {
+        this.loading = false;
+        console.log(error);
+      }
+    )
+  }
+  
+
+  insertReservation(id: number) {
+    this.reservetionService.insertReservation(id).subscribe(
+      response => {
+        this.loading = true;
+        // this.handleSuccess("Veículo atualizado com sucesso!!");
+
+      },
+      error => {
+        this.loading = false;
+        console.log(error);
+      }
+    )
   }
 
-  handleSuccess(message: string): void {
-    alert(message);
-    this.vehicle = new Vehicle;
-    this.getAllVehicles();
-  }
-
-  handleError(error: any): void {
-    console.log(error);
-    // alert("Ocorreu um erro. Por favor, tente novamente.");
+  deleteReservation(id: number) {
+    this.getAllreservations
+    
+    const reservationToDelete = this.reservations.find((reservation) => {
+      return reservation.vehicle!.id === id;
+    });
+    
+    if (reservationToDelete !== null && reservationToDelete !== undefined) {
+      const reservationId = reservationToDelete.reservation!.id;
+      this.reservetionService.deleteReservation(reservationId!).subscribe(
+        response => {
+          this.loading = true;
+          // this.handleSuccess("Veículo atualizado com sucesso!!");
+        },
+        error => {
+          this.loading = false;
+          console.log(error);
+        }
+      )
+    }
   }
 }
