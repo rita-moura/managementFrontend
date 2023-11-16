@@ -1,27 +1,47 @@
-# ManagementFrontend
+# Frontend gerencia uma loja de aluguel de veiculos
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.10.
+Este projeto foi gerado com Angular CLI versão 16.2.10.
 
-## Development server
+## Como usar o projeto
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+__1 -__ Clone o repositótio utilizando os comandos abaixo
 
-## Code scaffolding
+- Para chave SSH
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```bash
+git clone git@github.com:rita-moura/managementFrontend.git
+```
 
-## Build
+- Para Https
+  
+```bash
+git clone https://github.com/rita-moura/managementFrontend.git
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+__2-__ Entre na pasta do projeto
 
-## Running unit tests
+```bash
+cd pasta_do_projeto
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+__3-__ Instale as dependências necessárias para rodar a aplicação como o seguinte comando
 
-## Running end-to-end tests
+```bash
+npm install
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Servidor de Desenvolvimento
 
-## Further help
+Execute `ng serve` para um servidor de desenvolvimento. Navegue para <http://localhost:4200/>. O aplicativo será recarregado automaticamente se você alterar qualquer um dos arquivos de origem.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Criação de Código
+
+Execute `ng generate component component-name` para gerar um novo componente. Você também pode usar ng generate directive|pipe|service|class|guard|interface|enum|module.
+
+## Construção
+
+Execute `ng build` para construir o projeto. Os artefatos de construção serão armazenados no diretório dist/.
+
+## Executando testes unitários
+
+Execute `ng test` para executar os testes unitários via Karma.
